@@ -29,13 +29,30 @@ module.exports = {
             });
         });
     },
-    deletePrayer: function (prayers) {
+    deletePrayer: function (prayer) {
         var Promise = promise.Promise;
+        console.log('Prayer Service Delete');
         return new Promise(function (resolve, reject) {
             $.ajax({
                 url: resourceUrl + "/" + prayer._id,
                 method: "DELETE",
                 dataType: "json",
+                success: resolve,
+                error: reject
+            });
+        });
+    },
+    updatePrayer: function (prayer) {
+        console.log('PrayerService Update');
+        console.log(JSON.stringify(prayer));
+        var Promise = promise.Promise;
+        return new Promise(function (resolve, reject) {
+            $.ajax({
+                url: resourceUrl+ "/" + prayer._id,
+                data: JSON.stringify(prayer),
+                method: "PUT",
+                dataType: "json",
+                contentType: "application/json",
                 success: resolve,
                 error: reject
             });

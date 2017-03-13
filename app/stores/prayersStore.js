@@ -23,7 +23,16 @@ function PrayerStore() {
     }
 
     function deletePrayer(prayer) {
+        console.log('prayerStore deletePrayer');
         prayerService.deletePrayer(prayer).then(function (res) {
+            console.log(res);
+            triggerListeners();
+        });
+    }
+
+    function updatePrayer(prayer) {
+        console.log('prayerStore updatePrayer');
+        prayerService.updatePrayer(prayer).then(function (res) {
             console.log(res);
             triggerListeners();
         });
@@ -45,7 +54,12 @@ function PrayerStore() {
                     addPrayer(payload.prayer);
                     break;
                 case "deletePrayer":
+                    console.log('PrayerStore dispatch deletePrayer');
                     deletePrayer(payload.prayer);
+                    break;
+                case "updatePrayer":
+                    console.log('PrayerStore dispatch updatePrayer');
+                    updatePrayer(payload.prayer);
                     break;
             }
         }

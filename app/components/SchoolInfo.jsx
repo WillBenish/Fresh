@@ -4,6 +4,7 @@ var actions = require("../actions/SchoolActions");
 module.exports = React.createClass({
     deleteSchool: function(e){
         e.preventDefault();
+        alert('test');
         actions.deleteSchool(this.props.info);
     },
     render:function(){
@@ -11,7 +12,7 @@ module.exports = React.createClass({
             <div className="panel panel-default">
                 <div className="panel-heading">
                     {this.props.info.name}
-                    <span className="pull-right text-uppercase delete-button" onClick={this.deleteSchool}>&times;</span>
+                    <span className="pull-right text-uppercase delete-button" onClick={this.deleteSchool}>&times;booogie</span>
                 </div>
                 <div className="panel-body">{this.props.info.tagline}</div>
             </div>

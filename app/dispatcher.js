@@ -3,6 +3,7 @@ var Guid = require("guid");
 var listeners = {};
 
 function dispatch(payload) {
+	console.log('Dispatch');
     for (var id in listeners) {
         listeners[id](payload);
     }

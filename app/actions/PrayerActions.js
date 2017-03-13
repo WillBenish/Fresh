@@ -8,9 +8,17 @@ module.exports = {
         });
     },
     deletePrayer:function(prayer){
+      console.log('PrayerActions deletePrayer');
         dispatcher.dispatch({
            prayer:prayer,
            type:"prayer:deletePrayer" 
+        });
+    },
+    updatePrayer:function(prayer){
+        console.log('PrayerActions Update');
+        dispatcher.dispatch({
+           prayer:prayer,
+           type:"prayer:updatePrayer" 
         });
     }
 }
