@@ -30,6 +30,6 @@ var prayerSchema = mongoose.Schema({
 });
 
  
-prayerSchema.plugin(mongooseFieldEncryption, {fields: ['tagline', 'name'], secret: 'some secret key'});
+//prayerSchema.plugin(mongooseFieldEncryption, {fields: ['tagline', 'name'], secret: 'some secret key'});
 
 module.exports = mongoose.model("prayer", prayerSchema);

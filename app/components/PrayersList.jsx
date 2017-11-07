@@ -8,6 +8,7 @@ module.exports = React.createClass({
            <div className="row">
                 <div className="col-md-6">
                     <AddPrayer />
+                    
                 </div>
                 <div className="col-md-6">
                     {
@@ -22,3 +23,48 @@ module.exports = React.createClass({
        )
    } 
 });
+
+export default class PrayersList extends React.Component {
+  constructor(props) {
+    this.super();
+
+    this.state = {
+      prayers: [],
+    };
+  }
+
+  render() {
+    <h2>{this.state.prayers[0]}</h2>
+  }
+}
+
+function blah() {
+  const someArray = ['a', 'thing'];
+}
+////////////////////
+var x;
+function doBadStuff(){...}
+var y;
+
+x = 1;
+
+
+
+const x = 1;
+
+for(x; x < 10; x++) {
+  y = x;
+  doBadStuff();
+}
+myfunct(xcy)
+const myfunct = function doBadStuff(thing) {
+  while(1) {
+    var z = 'suck it';
+    let aa = 'nope';
+    console.log('lol');
+  }
+}
+
+console.log(z);
+console.log(aa);
+let y;

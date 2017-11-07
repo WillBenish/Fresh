@@ -1,10 +1,32 @@
 var mongoose = require("mongoose");
 var Prayer = require("../data/prayer");
 var _ = require("underscore");
+var crypto = require('crypto');
+
 mongoose.Promise = global.Promise;
 
 var router = require("express").Router();
 router.route("/prayers/:id?").get(getPrayers).post(addPrayer).delete(deletePrayer).put(updatePrayer);
+
+
+function encrypt(text){
+  var cipher = crypto.createCipher('aes-256-cbc', 'Secret Key');
+  var crypted = cipher.update(text.toString('binary'),'utf8','hex');
+  crypted += cipher.final('hex');
+  console.log('test encrypt');
+  return crypted;
+} 
+
+function decrypt(text){
+  if (text === null || typeof text === 'undefined') {return text;};
+  var decipher = crypto.createDecipher('aes-256-cbc', 'Secret Key');
+  var dec = decipher.update(text.toString('binary'),'hex','utf8');
+  dec += decipher.final('utf8');
+  console.log('test dencrypt');
+  return dec;
+}
+
+
 
 function getPrayers(req, res) {
     var d = new Date();
@@ -24,15 +46,17 @@ function getPrayers(req, res) {
       }
    ], function( err, aggr){
 
-    console.log(JSON.stringify(aggr));
-    console.log(aggr[0]);
-    console.log('test')
+   // console.log(JSON.stringify(aggr));
+    //console.log(aggr[0]);
+    //console.log('test')
     var prayPerDay =1;
+    console.log(aggr.length);
     if(aggr.length>0){
      prayPerDay = Math.ceil(aggr[0].prayersPerDay);
     }
     
     console.log('limit: ' + prayPerDay);
+
       Prayer.aggregate([ 
             { $project: { 
                 prayersort: {$divide :[{$subtract: ["$lastprayed",n]},"$pace"]},
@@ -53,8 +77,17 @@ function getPrayers(req, res) {
            res.send(err);
        }
         else
+            for (i = 0; i < prayers.length; i++) { 
+            //console.log(prayers[i].name);
+           if(prayers[i].name.length = 32){
+            prayers[i].name = decrypt(prayers[i].name);
+           };
+           
+           
+            }
+        console.log('First Prayer in list');
             console.log(JSON.stringify(prayers));
-        console.log('woot');
+            console.log('woot');
              res.json(prayers);
     });
 /*
@@ -79,6 +112,10 @@ function getPrayers(req, res) {
 
 function addPrayer(req, res) {
     var prayer = new Prayer(_.extend({}, req.body));
+    console.log('Prayer Name:');
+    console.log(prayer.name);
+    prayer.name = encrypt(prayer.name);
+    console.log(prayer.name);
     console.log(JSON.stringify(prayer));
     console.log('prayerController add new');
     prayer.save(function (err) {
@@ -105,10 +142,12 @@ function deletePrayer(req, res) {
 
 function updatePrayer(req, res) {
     var prayer = new Prayer(_.extend({}, req.body));
-    console.log('prayerController Update');
-    prayer.clickcount += 1;
-    console.log(JSON.stringify(prayer));
-    console.log(prayer.clickcount);
+    //console.log('prayerController Update');
+    //console.log(prayer.clickcount);  
+    //prayer.clickcount += 0;
+    //console.log(prayer.clickcount);
+    //console.log(JSON.stringify(prayer));
+    prayer.name = encrypt(prayer.name);
     var id = req.params.id;
     console.log(id);
    // alert('tester');

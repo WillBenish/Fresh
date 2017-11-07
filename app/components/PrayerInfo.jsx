@@ -23,7 +23,7 @@ module.exports = React.createClass({
                 <div className="panel-heading">
                     {this.props.info.name}
                     <span className="pull-right text-uppercase delete-button" onClick={this.deletePrayer}>&times;</span>
-    
+                    <Button bsStyle="primary" bsSize="large" block>Block level button</Button>
                 </div>
                 <div className="panel-body">
                     <span className="pull-right text-uppercase delete-button" onClick={this.updatePrayer}>&times;{this.props.info.clickcount}</span>
